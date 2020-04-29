@@ -2,12 +2,10 @@
 interface UserInterface{
     public function register(array $fields);
     public function login(string $username, string $password);
-    public function logout();
+    public static function logout();
 }
 class User implements UserInterface{
     private $db;
-    private $stmt;
-    private $sql;
 
     public function __construct()
     {
@@ -23,16 +21,30 @@ class User implements UserInterface{
         $this->db->bind(':salt',$salt);
         $this->db->bind(':joined',date("Y-m-d H:i:s"));
         $this->db->execute();
+        header('Location:login.php');
     }
 
     public function login(string $username, string $password){
-        //TODO
+        $this->db->query('SELECT * FROM users where username = :username');
+        $this->db->bind(':username',$username);
+        if($this->db->first()){
+            $salt = $this->db->first()->salt;
+            $this->db->query('SELECT * FROM users where username = :username AND password = :password');
+            $this->db->bind(':username',$username);
+            $this->db->bind(':password',Hash::make($password,$salt));
+            if($this->db->first()){
+                $_SESSION['is_Logged_in'] = true;
+                header('Location: index.php');
+            } else {
+                echo 'Bledne haslo';
+            }
+        } else {
+            echo 'nie znaleziono uzytkownika';
+        }
     }
 
-    public function logout(){
-        //TODO
+    public static function logout(){
+        session_unset('is_Logged_in');
     }
     
-
-
 }

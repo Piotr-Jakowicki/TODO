@@ -1,3 +1,7 @@
+<?php 
+require_once 'core/init.php';
+require_once 'sanitize.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,29 +17,29 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">Brand</a>
+    <a href="index.php" class="navbar-brand">Brand</a>
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav">
-            <a href="#" class="nav-item nav-link active">Home</a>
+            <a href="index.php" class="nav-item nav-link active">Home</a>
         </div>
         <div class="navbar-nav">
-            <!-- Nie zalogowany -->
+            <?php if(!isset($_SESSION['is_Logged_in'])): ?>
             <a href="login.php" class="nav-item nav-link">Login</a>
             <a href="register.php" class="nav-item nav-link">Register</a>
-            <!-- Zalogowany -->
+            <?php else: ?>
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
+                <a href="account.php" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">User details</a>
-                    <a href="#" class="dropdown-item">Change password</a>
+                    <a href="update_details.php" class="dropdown-item">User details</a>
+                    <a href="change_password.php" class="dropdown-item">Change password</a>
                 </div>
             </div>
-            <a href="#" class="nav-item nav-link">Logout</a>
-            <!-- Endif -->
+            <a href="logout.php" class="nav-item nav-link">Logout</a>
+            <?php endif;?>
         </div>
         
     </div>
