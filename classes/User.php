@@ -15,10 +15,13 @@ class User implements UserInterface{
     }
 
     public function register(array $fields){
-        $this->db->query("INSERT INTO users (username, password, name) VALUES (:username, :password, :name)");
+        $salt = Hash::salt(32);
+        $this->db->query('INSERT INTO users (username, password, name, salt, joined) VALUES (:username, :password, :name, :salt, :joined)');
         $this->db->bind(':username',$fields['username']);
-        $this->db->bind(':password',$fields['password']);
+        $this->db->bind(':password',Hash::make($fields['password'],$salt));
         $this->db->bind(':name',$fields['name']);
+        $this->db->bind(':salt',$salt);
+        $this->db->bind(':joined',date("Y-m-d H:i:s"));
         $this->db->execute();
     }
 
