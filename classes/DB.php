@@ -2,6 +2,7 @@
 class DB{
     private static $instance = null;
     private $con;
+    private $stmt;
 
     private function __construct(){
         try{
@@ -19,12 +20,25 @@ class DB{
         return self::$instance;
     }
 
-    public function getConnection(){
-        return $this->con;
-    }
-
     private function __clone(){}
 
     private function __wakeup(){}
+
+    public function query($query){
+        $this->stmt = $this->con->prepare($query); 
+    }
+
+    public function bind($param, $value){
+        $this->stmt->bindValue($param, $value);
+    }
+
+    public function execute(){
+        return $this->stmt->execute();
+    }
+
+    public function resultSet(){
+        $this->execute();
+        return $this->stmt->fetchAll(PDO::FETCH_OBJ);
+    }
 }
 

@@ -5,15 +5,21 @@ interface UserInterface{
     public function logout();
 }
 class User implements UserInterface{
-    private $dbh;
+    private $db;
+    private $stmt;
+    private $sql;
 
     public function __construct()
     {
-        $this->dbh = DB::getInstance()->getConnection();
+        $this->db = DB::getInstance();
     }
 
     public function register(array $fields){
-        //TODO
+        $this->db->query("INSERT INTO users (username, password, name) VALUES (:username, :password, :name)");
+        $this->db->bind(':username',$fields['username']);
+        $this->db->bind(':password',$fields['password']);
+        $this->db->bind(':name',$fields['name']);
+        $this->db->execute();
     }
 
     public function login(string $username, string $password){
