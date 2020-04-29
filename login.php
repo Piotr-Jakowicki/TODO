@@ -8,21 +8,23 @@ if(isset($_SESSION['is_Logged_in'])){
 }
 
 if(isset($_POST['submit'])){
-    $val = new Validate();
-    $val->make($_POST,array(
-        'username' => 'required:1|min:6|max:20',
-        'password' => 'required:1|min:6|max:30',
-    ));
+    if(Token::check($_POST['token'])){
+        $val = new Validate();
+        $val->make($_POST,array(
+            'username' => 'required:1|min:6|max:20',
+            'password' => 'required:1|min:6|max:30',
+        ));
 
-    if($val->passed()){
-        $user = new User();
-        $user->login($_POST['username'], $_POST['password']);
-    } else {
-        ?> <div class="alert alert-danger" role="alert"> <?php
-        foreach($val->getErrors() as $error){
-        echo $error . '</br>';
+        if($val->passed()){
+            $user = new User();
+            $user->login($_POST['username'], $_POST['password']);
+        } else {
+            ?> <div class="alert alert-danger" role="alert"> <?php
+            foreach($val->getErrors() as $error){
+            echo $error . '</br>';
+            }
+            ?> </div> <?php
         }
-        ?> </div> <?php
     }
 }
 
@@ -39,7 +41,7 @@ if(isset($_POST['submit'])){
         <input type="password" class="form-control" name='password' id="Password" placeholder="Password">
         </div>
     </div>
-    <input type="hidden" value ='<!-- Token -->' >
+    <input type="hidden" name="token" value ="<?= Token::generate(); ?>" >
     <button type="submit" class="btn btn-primary" name="submit">Sign in</button>
     </form>
 </div>

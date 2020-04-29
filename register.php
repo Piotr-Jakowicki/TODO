@@ -3,23 +3,25 @@ require_once 'templates/inc/header.php';
 require_once 'core/init.php';
 
 if(isset($_POST['submit'])){
-    $val = new Validate();
-    $val->make($_POST,array(
-        'username' => 'required:1|min:6|max:20|unique:1',
-        'name' => 'required:1|max:50',
-        'password' => 'required:1|min:6|max:30',
-        'password_again' => 'same:password'
-    ));
+    if(Token::check($_POST['token'])){
+        $val = new Validate();
+        $val->make($_POST,array(
+            'username' => 'required:1|min:6|max:20|unique:1',
+            'name' => 'required:1|max:50',
+            'password' => 'required:1|min:6|max:30',
+            'password_again' => 'same:password'
+        ));
 
-    if($val->passed()){
-        $user = new User();
-        $user->register($_POST);
-    } else {
-        ?> <div class="alert alert-danger" role="alert"> <?php
-        foreach($val->getErrors() as $error){
-        echo $error . '</br>';
+        if($val->passed()){
+            $user = new User();
+            $user->register($_POST);
+        } else {
+            ?> <div class="alert alert-danger" role="alert"> <?php
+            foreach($val->getErrors() as $error){
+            echo $error . '</br>';
+            }
+            ?> </div> <?php
         }
-        ?> </div> <?php
     }
 }
 ?>
@@ -43,7 +45,7 @@ if(isset($_POST['submit'])){
         <input type="text" class="form-control" name='password_again' id="Password_again" placeholder="Password_again">
         </div>
     </div>
-    <input type="hidden" value ='<!-- Token -->' >
+    <input type="hidden" name="token" value ="<?= Token::generate(); ?>" >
     <button type="submit" class="btn btn-primary" name="submit">Sign in</button>
     </form>
 </div>
