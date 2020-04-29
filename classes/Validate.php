@@ -33,6 +33,13 @@ class Validate{
                         $this->addError("{$name} and {$rule[1]} not match");
                     }
                 }
+                if($rule[0] == 'unique'){
+                    $this->db->query('SELECT * FROM users where username = :username');
+                    $this->db->bind(':username', $POST[$name]);
+                    if($this->db->resultSet()){
+                        $this->addError("User already exists");
+                    }
+                }
             }
         }
     }

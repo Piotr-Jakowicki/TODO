@@ -5,7 +5,7 @@ require_once 'core/init.php';
 if(isset($_POST['submit'])){
     $val = new Validate();
     $val->make($_POST,array(
-        'username' => 'required:1|min:6|max:20',
+        'username' => 'required:1|min:6|max:20|unique:1',
         'name' => 'required:1|max:50',
         'password' => 'required:1|min:6|max:30',
         'password_again' => 'same:password'
