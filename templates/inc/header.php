@@ -24,8 +24,8 @@
         </div>
         <div class="navbar-nav">
             <!-- Nie zalogowany -->
-            <a href="#" class="nav-item nav-link">Login</a>
-            <a href="#" class="nav-item nav-link">Register</a>
+            <a href="login.php" class="nav-item nav-link">Login</a>
+            <a href="register.php" class="nav-item nav-link">Register</a>
             <!-- Zalogowany -->
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
