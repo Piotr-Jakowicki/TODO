@@ -40,5 +40,10 @@ class DB{
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
+
+    public function first(){
+        $this->execute();
+        return $this->stmt->fetch(PDO::FETCH_OBJ);
+    }
 }
 
