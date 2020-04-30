@@ -10,8 +10,6 @@ if(isset($_POST['submit'])){
     ));
     if($val->passed()){
         $todo->create($_POST['task'],$_POST['comment'],$_POST['prioryty']);
-        header('Location:index.php');
-        exit;
     } else{
         ?> <div class="alert alert-danger" role="alert"> <?php
             foreach($val->getErrors() as $error){
@@ -19,5 +17,7 @@ if(isset($_POST['submit'])){
             }
             ?> </div> <?php
     }
-    
+    //MSG FIX
+    header('Location:dashboard.php');
+    exit;
 }

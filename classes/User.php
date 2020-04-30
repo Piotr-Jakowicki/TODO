@@ -21,7 +21,6 @@ class User implements UserInterface{
         $this->db->bind(':salt',$salt);
         $this->db->bind(':joined',date("Y-m-d H:i:s"));
         $this->db->execute();
-        header('Location:login.php');
     }
 
     public function login(string $username, string $password){

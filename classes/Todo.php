@@ -62,4 +62,21 @@ class Todo{
 
     }
 
+    public function single($id){
+        $this->db->query('SELECT * FROM tasks WHERE id = :id');
+        $this->db->bind(':id',$id);
+        $this->db->execute();
+        return $this->db->first();
+    }
+
+    public function update($task, $comment, $prioryty,$id){
+        $this->db->query('UPDATE tasks SET tasks.task = :task, tasks.comment = :comment, tasks.prioryty = :prioryty WHERE id = :id');
+       
+        $this->db->bind(':task',$task);
+        $this->db->bind(':comment',$comment);
+        $this->db->bind(':prioryty',$prioryty);
+        $this->db->bind(':id',$id);
+        $this->db->execute();
+    }
+
 }

@@ -24,7 +24,7 @@ require_once 'sanitize.php';
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav">
-            <a href="index.php" class="nav-item nav-link active">Home</a>
+            <a href="dashboard.php" class="nav-item nav-link active">Home</a>
         </div>
         <div class="navbar-nav">
             <?php if(!isset($_SESSION['is_Logged_in'])): ?>
