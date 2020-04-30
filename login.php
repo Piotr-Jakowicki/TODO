@@ -18,6 +18,7 @@ if(isset($_POST['submit'])){
         if($val->passed()){
             $user = new User();
             $user->login($_POST['username'], $_POST['password']);
+            header('Location:index.php');
         } else {
             ?> <div class="alert alert-danger" role="alert"> <?php
             foreach($val->getErrors() as $error){

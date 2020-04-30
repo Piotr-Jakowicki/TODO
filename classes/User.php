@@ -34,6 +34,7 @@ class User implements UserInterface{
             $this->db->bind(':password',Hash::make($password,$salt));
             if($this->db->first()){
                 $_SESSION['is_Logged_in'] = true;
+                $_SESSION['id'] = $this->db->first()->id;
                 header('Location: index.php');
             } else {
                 echo 'Bledne haslo';
@@ -41,6 +42,13 @@ class User implements UserInterface{
         } else {
             echo 'nie znaleziono uzytkownika';
         }
+    }
+
+    public function fetchData($id){
+        $this->db->query('SELECT * FROM tasks WHERE user_id = :id');
+        $this->db->bind(':id',$id);
+        $this->db->execute();
+        return $this->db->resultSet();
     }
 
     public static function logout(){
