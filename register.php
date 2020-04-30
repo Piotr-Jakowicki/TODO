@@ -1,7 +1,10 @@
 <?php 
 require_once 'templates/inc/header.php';
 //require_once 'core/init.php';
-
+if(isset($_SESSION['is_Logged_in'])){
+    header('Location:dashboard.php');
+    exit;
+}
 if(isset($_POST['submit'])){
     if(Token::check($_POST['token'])){
         $val = new Validate();

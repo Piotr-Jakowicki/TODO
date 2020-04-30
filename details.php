@@ -10,9 +10,19 @@ var_dump($task);
 */;
 
 if(isset($_POST['submit'])){
-    $todo->update($_POST['task'],$_POST['comment'],$_POST['prioryty'],$_POST['id']);
-    header('Location:dashboard.php');
+    $val = new Validate();
+    $val->make($_POST,array(
+        'task' => 'required:1|max:20',
+    ));
+    if($val->passed()){
+        $todo->update($_POST['task'],$_POST['comment'],$_POST['prioryty'],$_POST['id']);
+        header('Location:dashboard.php');
     exit;
+    } else {
+        header('Location:details.php?id='.$_POST["id"]);
+        //MSG
+    }
+    
 }
 ?>
 

@@ -10,8 +10,17 @@ if(isset($_SESSION['find_results'])){
 } else {
     $results = $todo->fetchData();
 }
+$count = count($results);
+if(!isset($_GET['page'])){
+    $page = 1;
+} else {
+    $page = $_GET['page'];
+}
+$results = array_slice($results,0+(($page-1)*10),10);
 
-
+function inRange($val, $min, $max){
+    return ($val >= $min && $val <= $max);
+}
 ?>
 
 <div class="container">
@@ -57,31 +66,42 @@ if(isset($_SESSION['find_results'])){
         </div>
         <div class="col-md-9 pt-5">
             <div class="card shadow-lg">
-            <div class="table-responsive table-striped">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Task</th>
-                        <th class="d-none d-md-block" scope="col">Comment</th>
-                        <th scope="col">Prioryty</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($results as $task): ?>
-                    <tr>
-                        <th scope="row"><?= $task->task ?></th>
-                        <td class="d-none d-md-block"><?= $task->comment ?></td>
-                        <td><?= $task->pname ?></td>
-                        <td>
-                        <a href="details.php?id=<?= $task->id?>" class="btn btn-info">Update</a>
-                        <a href="delete.php?id=<?= $task->id?>" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>  
-                    <?php endforeach; ?> 
-                </tbody>
-            </table>
-            </div>
+                <div class="table-responsive table-striped">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Task</th>
+                                <th class="d-none d-md-block" scope="col">Comment</th>
+                                <th scope="col">Prioryty</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($results as $task): ?>
+                            <tr>
+                                <th scope="row"><?= $task->task ?></th>
+                                <td class="d-none d-md-block"><?= $task->comment ?></td>
+                                <td><?= $task->pname ?></td>
+                                <td>
+                                <a href="details.php?id=<?= $task->id?>" class="btn btn-info">Update</a>
+                                <a href="delete.php?id=<?= $task->id?>" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>  
+                            <?php endforeach; ?> 
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-muted">
+                <nav aria-label="...">
+                    <ul class="pagination d-flex justify-content-center">
+                        <?php for($i = 0;$i<$count/10;$i++){ 
+                            if(inRange($i,$page-3,$page+5)){
+                        ?>
+                        <li class="page-item"><a class="page-link" href="dashboard.php?page=<?php echo $i+1; ?>"><?= $i+1 ?></a></li>
+                        <?php }} ?>
+                    </ul>
+                </nav>
+                </div>
             </div>
         </div>
     </div>
@@ -91,4 +111,6 @@ if(isset($_SESSION['find_results'])){
 <?php
 unset($_SESSION['find_results']);
 require_once 'templates/inc/footer.php';
+
+
 ?>

@@ -3,7 +3,7 @@
 require_once 'templates/inc/header.php';
 
 if(isset($_SESSION['is_Logged_in'])){
-    header('Loaction:index.php');
+    header('Location:dashboard.php');
     exit;
 }
 
