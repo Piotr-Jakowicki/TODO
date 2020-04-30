@@ -44,13 +44,6 @@ class User implements UserInterface{
         }
     }
 
-    public function fetchData($id){
-        $this->db->query('SELECT * FROM tasks WHERE user_id = :id');
-        $this->db->bind(':id',$id);
-        $this->db->execute();
-        return $this->db->resultSet();
-    }
-
     public static function logout(){
         session_unset('is_Logged_in');
     }
