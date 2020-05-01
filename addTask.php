@@ -1,6 +1,5 @@
 <?php
-
-require_once 'templates/inc/header.php';
+require_once 'core/init.php';
 $todo = New todo();
 
 if(isset($_POST['submit'])){
@@ -10,14 +9,13 @@ if(isset($_POST['submit'])){
     ));
     if($val->passed()){
         $todo->create($_POST['task'],$_POST['comment'],$_POST['prioryty']);
+        Message::success('Successfully add new task!');
     } else{
-        ?> <div class="alert alert-danger" role="alert"> <?php
-            foreach($val->getErrors() as $error){
-            echo $error . '</br>';
-            }
-            ?> </div> <?php
+        foreach($val->getErrors() as $error){
+            Message::danger($error);
+        }
     }
-    //MSG FIX
+    $_SESSION['msg'] = Message::set();
     header('Location:dashboard.php');
     exit;
 }

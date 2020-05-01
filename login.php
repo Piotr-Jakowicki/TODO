@@ -1,11 +1,5 @@
-<?php 
-//require_once 'core/init.php';
-require_once 'templates/inc/header.php';
-
-if(isset($_SESSION['is_Logged_in'])){
-    header('Location:dashboard.php');
-    exit;
-}
+<?php
+require_once 'core/init.php';
 
 if(isset($_POST['submit'])){
     if(Token::check($_POST['token'])){
@@ -21,29 +15,11 @@ if(isset($_POST['submit'])){
             header('Location:dashboard.php');
             exit;
         } else {
-            ?> <div class="alert alert-danger" role="alert"> <?php
             foreach($val->getErrors() as $error){
-            echo $error . '</br>';
+                Message::danger($error); 
             }
-            ?> </div> <?php
+            Message::set();
         }
     }
 }
-
-?>
-<div class="container">
-    <form action='' method="POST">
-    <div class="form-row">
-        <div class="form-group col-md-6">
-        <label for="Username">Username</label>
-        <input type="text" class="form-control" name='username' id="Username" placeholder="Username">
-        </div>
-        <div class="form-group col-md-6">
-        <label for="Password">Password</label>
-        <input type="password" class="form-control" name='password' id="Password" placeholder="Password">
-        </div>
-    </div>
-    <input type="hidden" name="token" value ="<?= Token::generate(); ?>" >
-    <button type="submit" class="btn btn-primary" name="submit">Sign in</button>
-    </form>
-</div>
+require_once 'templates/login.php';
