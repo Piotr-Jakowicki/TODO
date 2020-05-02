@@ -1,6 +1,6 @@
 <?php 
 require_once 'core/init.php';
-require_once 'sanitize.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,14 +17,14 @@ require_once 'sanitize.php';
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a href="index.php" class="navbar-brand">Brand</a>
+    <a href="index.php" class="navbar-brand">ToDo</a>
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
         <div class="navbar-nav">
-            <a href="dashboard.php" class="nav-item nav-link active">Home</a>
+            <a href="dashboard.php" class="nav-item nav-link active">MyList</a>
         </div>
         <div class="navbar-nav">
             <?php if(!isset($_SESSION['is_Logged_in'])): ?>
@@ -32,9 +32,9 @@ require_once 'sanitize.php';
             <a href="register.php" class="nav-item nav-link">Register</a>
             <?php else: ?>
             <div class="nav-item dropdown">
-                <a href="account.php" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
                 <div class="dropdown-menu">
-                    <a href="update_details.php" class="dropdown-item">User details</a>
+                    <a href="update_details.php?user=<?= $_SESSION['id'] ?>" class="dropdown-item">User details</a>
                     <a href="change_password.php" class="dropdown-item">Change password</a>
                 </div>
             </div>

@@ -43,8 +43,21 @@ class User implements UserInterface{
         }
     }
 
+    public function update($name){
+        $this->db->query('UPDATE users SET users.name = :name WHERE id = :id');
+        $this->db->bind(':name',$name);
+        $this->db->bind(':id',$_SESSION['id']);
+        $this->db->execute();
+    }
+
+    public function single($id){
+        $this->db->query('SELECT * FROM users WHERE id = :id');
+        $this->db->bind(':id',$id);
+        $this->db->execute();
+        return $this->db->first();
+    }
+
     public static function logout(){
         session_unset('is_Logged_in');
     }
-    
 }

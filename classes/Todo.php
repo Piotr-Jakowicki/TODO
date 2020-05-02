@@ -78,5 +78,4 @@ class Todo{
         $this->db->bind(':id',$id);
         $this->db->execute();
     }
-
 }

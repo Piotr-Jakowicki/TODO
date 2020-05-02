@@ -69,8 +69,8 @@ if(isset($_SESSION['msg'])){
                                 <td class="d-none d-md-table-cell"><?= $task->comment ?></td>
                                 <td><?= $task->pname ?></td>
                                 <td>
-                                <a href="details.php?id=<?= $task->id?>" class="btn btn-info">Update</a>
-                                <a href="delete.php?id=<?= $task->id?>" class="btn btn-danger">Delete</a>
+                                <a href="details.php?id=<?= $task->id. '&user='.$_SESSION['id']?>" class="btn btn-info">Update</a>
+                                <a href="delete.php?id=<?= $task->id ?>" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>  
                             <?php endforeach; ?> 
