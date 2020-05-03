@@ -32,3 +32,6 @@ if(isset($_SESSION['msg'])){
     <button type="submit" class="btn btn-primary" name="submit">Sign in</button>
     </form>
 </div>
+<?php
+require_once 'templates/inc/footer.php';
+?>

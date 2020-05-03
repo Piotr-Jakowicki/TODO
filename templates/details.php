@@ -28,3 +28,6 @@ if(!isset($_SESSION['is_Logged_in']) || $_SESSION['id'] != $_GET['user']){
         </div>
     </div>
 </div>
+<?php
+require_once 'templates/inc/footer.php';
+?>

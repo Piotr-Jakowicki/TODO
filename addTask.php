@@ -1,9 +1,10 @@
 <?php
 require_once 'core/init.php';
 $todo = New todo();
-
 if(isset($_POST['submit'])){
+    echo $_POST['add_token'];
     if(Token::check($_POST['add_token'])){
+        echo 'yes';
         $val = new Validate();
         $val->make($_POST,array(
             'task' => 'required:1|max:20',

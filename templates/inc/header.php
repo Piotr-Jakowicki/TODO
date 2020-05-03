@@ -35,7 +35,7 @@ require_once 'core/init.php';
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Account</a>
                 <div class="dropdown-menu">
                     <a href="update_details.php?user=<?= $_SESSION['id'] ?>" class="dropdown-item">User details</a>
-                    <a href="change_password.php" class="dropdown-item">Change password</a>
+                    <a href="change_password.php?user=<?= $_SESSION['id'] ?>" class="dropdown-item">Change password</a>
                 </div>
             </div>
             <a href="logout.php" class="nav-item nav-link">Logout</a>

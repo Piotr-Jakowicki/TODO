@@ -15,9 +15,6 @@ if(!isset($_GET['page'])){
 }
 $results = array_slice($results,0+(($page-1)*10),10);
 
-function inRange($val, $min, $max){
-    return ($val >= $min && $val <= $max);
-}
 
 require_once 'templates/dashboard.php';
 

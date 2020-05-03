@@ -3,8 +3,7 @@ require_once 'templates/inc/header.php';
 
 $user = New User();
 
-$data = $user->single($_GET['user']);
-
+$data = $user->getUser('id', $_GET['user']);
 if(isset($_POST['submit'])){
     if(Token::check($_POST['update_details_token'])){
         $val = new Validate();
@@ -13,14 +12,18 @@ if(isset($_POST['submit'])){
         ));
 
         if($val->passed()){
-            $user->update($_POST['name']);
-            header('Location:login.php');
+            $user->update('name',$_POST['name']);
+            Message::success('Update successfully');
+            Message::set();
+            header('Location:dashboard.php');
             exit;
         } else {
             foreach($val->getErrors() as $error){
-                Message::danger($error);
+                Message::danger($error);    
             }
             Message::set();
+            header("Location:update_details.php?user=" . $_POST['id']);
+            exit;
         }
     }
 }

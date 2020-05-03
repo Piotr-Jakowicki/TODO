@@ -26,7 +26,7 @@ if(isset($_SESSION['msg'])){
                         <option value="2">Medium</option>
                         <option value="3">High</option>
                     </select>
-                    <input type="hidden" name="add_token" value ="<?= Token::generate(); ?>" >
+                    <input type="hidden" name="add_token" value ="<?= $token = Token::generate(); ?>" >
                     <input class="submit btn btn-primary w-100 mt-2" type="submit" name="submit" value="Submit">
                 </form>
                 </div>
@@ -45,7 +45,7 @@ if(isset($_SESSION['msg'])){
                         <option value="2">Medium</option>
                         <option value="3">High</option>
                     </select>
-                    <input type="hidden" name="find_token" value ="<?= Token::generate(); ?>" >
+                    <input type="hidden" name="find_token" value ="<?= $token ?>" >
                     <input class="submit btn btn-primary w-100 mt-2" type="submit" name="submit" value="Submit">
                     <input class="submit btn btn-info w-100 mt-2" type="submit" name="reset" value="Reset">
                 </form>
@@ -103,5 +103,4 @@ if(isset($_SESSION['msg'])){
 <?php
 unset($_SESSION['find_results']);
 require_once 'templates/inc/footer.php';
-
 ?>

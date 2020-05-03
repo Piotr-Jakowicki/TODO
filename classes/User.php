@@ -19,9 +19,7 @@ class User{
     }
 
     public function login(string $username, string $password){
-        $this->db->query('SELECT * FROM users where username = :username');
-        $this->db->bind(':username',$username);
-        $data = $this->db->first();
+        $data = $this->getUser('username', $username);
         if(isset($data->username)){
             $salt = $data->salt;
             if(Hash::make($password, $salt) == $data->password){
@@ -38,18 +36,34 @@ class User{
         Message::set();
     }
 
-    public function update($name){
-        $this->db->query('UPDATE users SET users.name = :name WHERE id = :id');
+    public function update($table, $name){
+        $this->db->query("UPDATE users SET {$table} = :name WHERE id = :id");
         $this->db->bind(':name',$name);
         $this->db->bind(':id',$_SESSION['id']);
         $this->db->execute();
     }
-
-    public function single($id){
-        $this->db->query('SELECT * FROM users WHERE id = :id');
-        $this->db->bind(':id',$id);
+    
+    public function getUser($mode, $value){
+        $this->db->query("SELECT * FROM users where {$mode} = :value");
+        $this->db->bind(':value',$value);
         $this->db->execute();
         return $this->db->first();
+    }
+
+    public function checkPassword($password){
+        $data = $this->getUser('id', $_SESSION['id']);
+        if(Hash::make($password, $data->salt) == $data->password){
+            return true;
+        }
+    }
+
+    public function changePassword($password){
+        $salt = Hash::salt(32);
+        $this->db->query("UPDATE users SET password = :password, salt = :salt WHERE id = :id");
+        $this->db->bind(':id',$_SESSION['id']);
+        $this->db->bind(':password', Hash::make($password, $salt));
+        $this->db->bind(':salt',$salt);
+        $this->db->execute();
     }
 
     public static function logout(){
