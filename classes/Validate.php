@@ -15,7 +15,7 @@ class Validate{
                 $rule = explode(':',$rule);
                 if($rule[0] == 'required' && $rule[1]){
                     if($POST[$name] == NULL){
-                        $this->addError("{$name} Field required");
+                        $this->addError("{$name} field required");
                     }
                 }
                 if($rule[0] == 'min'){
@@ -30,14 +30,14 @@ class Validate{
                 }
                 if($rule[0] == 'same'){
                     if($POST[$name] != $POST[$rule[1]]){
-                        $this->addError("{$name} and {$rule[1]} not match");
+                        $this->addError("{$name} and {$rule[1]} are not the same");
                     }
                 }
                 if($rule[0] == 'unique'){
                     $this->db->query('SELECT * FROM users where username = :username');
                     $this->db->bind(':username', $POST[$name]);
                     if($this->db->resultSet()){
-                        $this->addError("User already exists");
+                        $this->addError("{$name} already exists");
                     }
                 }
             }

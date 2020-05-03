@@ -17,7 +17,9 @@ if(isset($_POST['submit'])){
         if($val->passed()){
             if($user->checkPassword($_POST['current_password'])){
                 $user->changePassword($_POST['new_password']);
-                header('Location:login.php');
+                Message::success('Password updated successfully');
+                Message::set();
+                header('Location:dashboard.php');
                 exit;
             } else {
                 Message::danger('Password incorrect');

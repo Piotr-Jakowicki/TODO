@@ -25,7 +25,7 @@ if(isset($_SESSION['msg'])){
         </div>
         <div class="form-group col-md-6">
         <label for="Password_again">Password Again</label>
-        <input type="text" class="form-control" name='password_again' id="Password_again" placeholder="Password_again">
+        <input type="password" class="form-control" name='password_again' id="Password_again" placeholder="Password_again">
         </div>
     </div>
     <input type="hidden" name="token" value ="<?= Token::generate(); ?>" >
