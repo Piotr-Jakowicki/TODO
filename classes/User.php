@@ -1,10 +1,5 @@
 <?php
-interface UserInterface{
-    public function register(array $fields);
-    public function login(string $username, string $password);
-    public static function logout();
-}
-class User implements UserInterface{
+class User{
     private $db;
 
     public function __construct()
@@ -26,21 +21,21 @@ class User implements UserInterface{
     public function login(string $username, string $password){
         $this->db->query('SELECT * FROM users where username = :username');
         $this->db->bind(':username',$username);
-        if($this->db->first()){
-            $salt = $this->db->first()->salt;
-            $this->db->query('SELECT * FROM users where username = :username AND password = :password');
-            $this->db->bind(':username',$username);
-            $this->db->bind(':password',Hash::make($password,$salt));
-            if($this->db->first()){
+        $data = $this->db->first();
+        if(isset($data->username)){
+            $salt = $data->salt;
+            if(Hash::make($password, $salt) == $data->password){
                 $_SESSION['is_Logged_in'] = true;
-                $_SESSION['id'] = $this->db->first()->id;
-                header('Location: index.php');
+                $_SESSION['id'] = $data->id;
+                header('Location: dashboard.php');
+                exit;
             } else {
-                echo 'Bledne haslo';
+                Message::danger('Wronge password');
             }
         } else {
-            echo 'nie znaleziono uzytkownika';
+            Message::danger('User not found');;
         }
+        Message::set();
     }
 
     public function update($name){

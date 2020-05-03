@@ -4,7 +4,10 @@ if(isset($_POST['submit'])){
     if(Token::check($_POST['token'])){
         $val = new Validate();
         $val->make($_POST,array(
-            'name' => 'required:1|max:50'
+            'username' => 'required:1|min:6|max:20|unique:1',
+            'name' => 'required:1|max:50',
+            'password' => 'required:1|min:6|max:30',
+            'password_again' => 'same:password'
         ));
 
         if($val->passed()){

@@ -20,6 +20,7 @@ if(!isset($_SESSION['is_Logged_in']) || $_SESSION['id'] != $_GET['user']){
                         <option value="2" <?php if($task->prioryty == 2) echo "selected"; ?>>Medium</option>
                         <option value="3" <?php if($task->prioryty == 3) echo "selected"; ?>>High</option>
                     </select>
+                    <input type="hidden" name="details_token" value ="<?= Token::generate(); ?>" >
                     <input type="hidden" value="<?= $_GET['id'] ?>" name="id">
                     <input class="submit btn btn-primary mt-2" type="submit" name="submit" value="Update">
                     <a class="btn btn-info mt-2" href="dashboard.php" role="button">Back</a>

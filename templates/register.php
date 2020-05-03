@@ -9,7 +9,7 @@ if(isset($_SESSION['msg'])){
 }
 ?>
 <div class="container">
-    <form action='' method="POST">
+    <form action='register.php' method="POST">
     <div class="form-row">
         <div class="form-group col-md-12">
         <label for="Username">Username</label>

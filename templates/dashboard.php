@@ -26,6 +26,7 @@ if(isset($_SESSION['msg'])){
                         <option value="2">Medium</option>
                         <option value="3">High</option>
                     </select>
+                    <input type="hidden" name="add_token" value ="<?= Token::generate(); ?>" >
                     <input class="submit btn btn-primary w-100 mt-2" type="submit" name="submit" value="Submit">
                 </form>
                 </div>
@@ -44,6 +45,7 @@ if(isset($_SESSION['msg'])){
                         <option value="2">Medium</option>
                         <option value="3">High</option>
                     </select>
+                    <input type="hidden" name="find_token" value ="<?= Token::generate(); ?>" >
                     <input class="submit btn btn-primary w-100 mt-2" type="submit" name="submit" value="Submit">
                     <input class="submit btn btn-info w-100 mt-2" type="submit" name="reset" value="Reset">
                 </form>

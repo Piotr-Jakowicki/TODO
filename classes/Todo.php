@@ -23,20 +23,13 @@ class Todo{
         $this->db->bind(':comment',$comment);
         $this->db->bind(':prioryty',$prioryty);
         $this->db->bind(':user_id',$this->id);
-        if($this->db->execute()){
-            echo "Udalo sie";
-            //MSG
-        } else {
-            echo "nie udao sie";
-            //MSG
-        }
+        $this->db->execute();
     }
 
     public function delete($id){
         $this->db->query('DELETE FROM tasks where id = :id');
         $this->db->bind(':id',$id);
         $this->db->execute();
-        //MSG
     }
 
     public function find($params){
@@ -47,7 +40,6 @@ class Todo{
         if($params[0] != NULL){
             $sql .= ' AND tasks.task LIKE CONCAT("%", :search, "%")';
         }
-        
         $this->db->query($sql);
         $this->db->bind(':id',$this->id);
         if($params[1] != 0){
