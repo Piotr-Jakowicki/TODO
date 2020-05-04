@@ -1,6 +1,6 @@
 <?php
 require_once 'core/init.php';
-$todo = New todo();
+$todo = New Todo();
 if(Token::check($_POST['find_token'])){
     if(isset($_POST['reset'])){
         unset($_SESSION['find_results']);

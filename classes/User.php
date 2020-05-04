@@ -31,7 +31,7 @@ class User{
                 Message::danger('Wronge password');
             }
         } else {
-            Message::danger('User not found');;
+            Message::danger('User not found');
         }
         Message::set();
     }
@@ -65,8 +65,10 @@ class User{
         $this->db->bind(':salt',$salt);
         $this->db->execute();
     }
-
+    
     public static function logout(){
-        session_unset('is_Logged_in');
+        session_unset();
+        session_destroy();
     }
+    
 }

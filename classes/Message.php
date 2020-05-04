@@ -25,9 +25,7 @@ class Message{
     public function display(){
         foreach($_SESSION['msg'] as $item){
             foreach($item as $msg => $class){
-                echo "<div class='alert alert-{$class} mb-0' role='alert'>
-                {$msg}
-                </div>";
+                echo "<div class='alert alert-{$class} mb-0' role='alert'>{$msg}</div>";
             }
         }
         unset($_SESSION['msg']);

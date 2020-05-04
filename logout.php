@@ -1,4 +1,5 @@
 <?php 
 require_once 'core/init.php';
-session_unset();
+$user = new User();
+$user->logout();
 header('Location: index.php');
