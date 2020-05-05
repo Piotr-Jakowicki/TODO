@@ -4,9 +4,6 @@ if(!isset($_SESSION['is_Logged_in'])){
     header('Location:index.php');
     exit;
 }
-if(isset($_SESSION['msg'])){
-    Message::display();
-}
 ?>
 
 <div class="container">
@@ -80,8 +77,9 @@ if(isset($_SESSION['msg'])){
                     </table>
                 </div>
                 <div class="card-footer text-muted">
-                <nav aria-label="...">
+                
                     <ul class="pagination d-flex justify-content-center">
+                        <li class="page-item <?php if($page <= 1) echo 'disabled' ?>"><a class="page-link" href="dashboard.php?page=<?php echo 1; ?>">First</a></li>
                         <?php 
                         for($i = 0;$i<$count/10;$i++){ 
                             if(inRange($i,$page-3,$page+5)){
@@ -91,8 +89,9 @@ if(isset($_SESSION['msg'])){
                            }
                         } 
                         ?>
+                        <li class="page-item <?php if($page >= ceil($count/10)) echo 'disabled' ?>"><a class="page-link" href="dashboard.php?page=<?php echo ceil($count/10); ?>">Last</a></li>
                     </ul>
-                </nav>
+                
                 </div>
             </div>
         </div>

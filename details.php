@@ -21,6 +21,7 @@ if(isset($_POST['submit'])){
             Message::danger('Update error');
             Message::set();
             header('Location:details.php?id='.$_POST["id"]);
+            exit;
         }
     }
 }

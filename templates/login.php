@@ -1,12 +1,9 @@
 <?php 
-require_once 'core/init.php';
+require_once 'templates/inc/header.php';
 
 if(isset($_SESSION['is_Logged_in'])){
     header('Location:dashboard.php');
     exit;
-}
-if(isset($_SESSION['msg'])){
-    Message::display();
 }
 ?>
 <div class="container">

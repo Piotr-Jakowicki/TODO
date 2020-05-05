@@ -1,5 +1,5 @@
 <?php
-require_once 'templates/inc/header.php';
+require_once 'core/init.php';
 
 if(isset($_POST['submit'])){
     if(Token::check($_POST['token'])){

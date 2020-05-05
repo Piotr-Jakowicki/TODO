@@ -1,11 +1,8 @@
 <?php 
-require_once 'core/init.php';
+require_once 'templates/inc/header.php';
 if(!isset($_SESSION['is_Logged_in']) || $_SESSION['id'] != $_GET['user']){
     header('Location:index.php');
     exit;
-}
-if(isset($_SESSION['msg'])){
-    Message::display();
 }
 ?>
 <div class="container">

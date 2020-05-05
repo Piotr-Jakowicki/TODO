@@ -44,3 +44,8 @@ require_once 'core/init.php';
         
     </div>
 </nav>
+<?php
+if(isset($_SESSION['msg'])){
+    Message::display();
+}
+?>

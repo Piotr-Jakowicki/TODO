@@ -1,5 +1,5 @@
 <?php
-require_once 'templates/inc/header.php';
+require_once 'core/init.php';
 
 $user = New User();
 
@@ -15,10 +15,9 @@ if(isset($_POST['submit'])){
         ));
 
         if($val->passed()){
-            if($user->checkPassword($_POST['current_password'])){
+            if($user->checkPassword($_POST['current_password'], $_SESSION['id'])){
                 $user->changePassword($_POST['new_password']);
                 Message::success('Password updated successfully');
-                Message::set();
                 header('Location:dashboard.php');
                 exit;
             } else {

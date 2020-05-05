@@ -50,8 +50,8 @@ class User{
         return $this->db->first();
     }
 
-    public function checkPassword($password){
-        $data = $this->getUser('id', $_SESSION['id']);
+    public function checkPassword($password, $id){
+        $data = $this->getUser('id', $id);
         if(Hash::make($password, $data->salt) == $data->password){
             return true;
         }

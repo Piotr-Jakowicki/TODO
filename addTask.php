@@ -16,7 +16,7 @@ if(isset($_POST['submit'])){
                 Message::danger($error);
             }
         }
-        $_SESSION['msg'] = Message::set();
+        Message::set();
         header('Location:dashboard.php');
         exit;
     }
